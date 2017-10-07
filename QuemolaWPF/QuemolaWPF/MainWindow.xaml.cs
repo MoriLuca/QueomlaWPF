@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -18,15 +20,56 @@ namespace QuemolaWPF
     /// <summary>
     /// Logica di interazione per MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class MainWindow : Window, INotifyPropertyChanged
     {
-        //data per il binding con la window
-        public DateTime _date;
+        public event PropertyChangedEventHandler PropertyChanged;
+        private void NotifyPropertyChanged(String info)
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(info));
+            }
+        }
+
+
+        private DateTime _date;
+        public DateTime Date
+        {
+            get { return _date; }
+            set
+            {
+                if (value != _date)
+                {
+                    _date = value;
+                    NotifyPropertyChanged(nameof(Date));
+                }
+            }
+        }
+
 
         public MainWindow()
         {
             InitializeComponent();
-            _date = DateTime.Now;
+            this.DataContext = this;
+            Date = DateTime.Now;
+            Thread Bidello = new Thread(bidella);
+            Bidello.IsBackground = true;
+            Bidello.Start();
+        }
+
+        private void bidella()
+        {
+            while (true)
+            {
+                this.Date = DateTime.Now;
+                Thread.Sleep(500);
+            }
+            
+        }
+
+        private void ClickVerificaProduzione(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

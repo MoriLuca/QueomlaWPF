@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:QuemolaWPF"
+        xmlns:sys="clr-namespace:System;assembly=mscorlib"
         mc:Ignorable="d"
         Title="Mecsid " Height="550" Width="1025">
     <Grid Name="wrapper">
@@ -41,7 +42,16 @@
         
         <!--parte destra della grid-->
         <StackPanel Grid.Column="1" Background="LightGray">
-            <TextBox Text="{Binding Text, ElementName=_date}" HorizontalAlignment="Right"/>
+            <!--<TextBox Text="{Binding Date}" HorizontalAlignment="Stretch" TextAlignment="Right"/>-->
+            <StackPanel Height="10"/><!--solamente per top margin-->
+            <Button Content="Verifica produzione in corso" Height="50" Click="ClickVerificaProduzione" Style="{DynamicResource ButtonStyleMenu}"
+                    />
+            <Button Content="Modifica la produzione" Height="50" Click="ClickVerificaProduzione"
+                    FontStyle="Italic" FontSize="25" Style="{DynamicResource ButtonStyleMenu}"/>
+            <Button Content="Report delle commesse terminate" Height="50" Click="ClickVerificaProduzione"
+                    FontStyle="Italic" FontSize="25" Style="{DynamicResource ButtonStyleMenu}"/>
+            <Button Content="Impostazioni e database Managment" Height="50" Click="ClickVerificaProduzione"
+                    FontStyle="Italic" FontSize="25" Style="{DynamicResource ButtonStyleMenu}"/>
         </StackPanel>
         <!--fine parte destra della grid-->
     </Grid>
