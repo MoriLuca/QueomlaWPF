@@ -20,9 +20,13 @@ namespace QuemolaWPF
     /// </summary>
     public partial class MainWindow : Window
     {
+        //data per il binding con la window
+        public DateTime _date;
+
         public MainWindow()
         {
             InitializeComponent();
+            _date = DateTime.Now;
         }
     }
 }

@@ -5,14 +5,15 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:QuemolaWPF"
         mc:Ignorable="d"
-        Title="Mecsid " Height="550" Width="825">
+        Title="Mecsid " Height="550" Width="1025">
     <Grid Name="wrapper">
         <!--Definizione grid-->
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
             <ColumnDefinition Width="2.5*"/>
         </Grid.ColumnDefinitions>
-
+        
+        <!--parte sinistra della grid-->
         <Grid Grid.Column="0" Background="AliceBlue">
             <Grid.RowDefinitions>
                 <RowDefinition Height="7*"/>
@@ -28,13 +29,20 @@
                     <RowDefinition/>
                     <RowDefinition/>
                 </Grid.RowDefinitions>
-                <Label Content="Stato Connessione PLC" Grid.Row="0" VerticalAlignment="Center"/>
-                <Label Content="Stato Connessione Database" Grid.Row="1" VerticalAlignment="Center"/>
-                <CheckBox Name="PLCConnection" Grid.Column="1" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                <CheckBox Name="BDConnection" Grid.Column="1" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                <Label Content="Stato Connessione PLC" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                <Label Content="Stato Connessione Database" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                <CheckBox Style="{DynamicResource CheckBoxStyleConnection}" Name="PLCConnection" Grid.Column="1" 
+                          Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Center" IsEnabled="False"/>
+                <CheckBox Style="{DynamicResource CheckBoxStyleConnection}" Name="BDConnection" Grid.Column="1" 
+                          Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center" IsEnabled="False"/>
             </Grid>
         </Grid>
-        <StackPanel Grid.Column="1" Background="LightGray"/>
-
+        <!--fine parte dinistra della grid-->
+        
+        <!--parte destra della grid-->
+        <StackPanel Grid.Column="1" Background="LightGray">
+            <TextBox Text="{Binding Text, ElementName=_date}" HorizontalAlignment="Right"/>
+        </StackPanel>
+        <!--fine parte destra della grid-->
     </Grid>
 </Window>
