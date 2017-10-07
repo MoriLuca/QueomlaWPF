@@ -15,7 +15,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace QuemolaWPF
+namespace QuemolaWPF.UI
 {
     /// <summary>
     /// Logica di interazione per MainWindow.xaml
@@ -69,7 +69,8 @@ namespace QuemolaWPF
 
         private void ClickVerificaProduzione(object sender, RoutedEventArgs e)
         {
-
+            Window x = new UI.ReportCommesseTerminate();
+            x.Show();
         }
     }
 }
