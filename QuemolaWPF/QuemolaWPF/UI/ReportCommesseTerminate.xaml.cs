@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -19,9 +20,19 @@ namespace QuemolaWPF.UI
     /// </summary>
     public partial class ReportCommesseTerminate : Window
     {
+        private DB.MecsidEntities db = new DB.MecsidEntities();
+
         public ReportCommesseTerminate()
         {
             InitializeComponent();
+        }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            System.Windows.Data.CollectionViewSource reportViewSource = ((System.Windows.Data.CollectionViewSource)(this.FindResource("reportViewSource")));
+            // Caricare i dati impostando la proprietà CollectionViewSource.Source:
+            db.Report.Load();
+            reportViewSource.Source = db.Report.Local;
         }
     }
 }

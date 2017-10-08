@@ -1,0 +1,363 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="MecsidModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Destinazione">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nome" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="MaterialiNomi">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nome" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="IdSfrido" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="MaterialiSfrido">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NomeSfrido" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="MolaGrana">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Grana" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="MolaMarca">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nome" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="MolaTipo">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nome" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="IdMarca" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Report">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DataFineLavoro" Type="datetime" />
+          <Property Name="Marca" Type="varchar" MaxLength="50" />
+          <Property Name="TipoSfrido" Type="varchar" MaxLength="50" />
+          <Property Name="NumeroColata" Type="varchar" MaxLength="50" />
+          <Property Name="Destinazione" Type="varchar" MaxLength="50" />
+          <Property Name="PezziLavorati" Type="int" />
+          <Property Name="PesoInizioLavoro" Type="real" />
+          <Property Name="PesoFineLavoro" Type="real" />
+          <Property Name="PesoSfrido" Type="real" />
+          <Property Name="CambioMola" Type="bit" />
+          <Property Name="NumeroMoleCambiate" Type="int" />
+          <Property Name="UtilizzoMolaConsigliata" Type="bit" />
+          <Property Name="UtilizzoGranaConsigliata" Type="bit" />
+          <Property Name="TipoMolaUtilizzata" Type="varchar" MaxLength="50" />
+          <Property Name="TipoMolaturaUtilizzato" Type="varchar" MaxLength="50" />
+          <Property Name="MarcaMolaUtilizzato" Type="varchar" MaxLength="50" />
+          <Property Name="NoteLavoro" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <!--Errori trovati durante la generazione:
+avviso 6002: Nessuna chiave primaria definita per la tabella/visualizzazione 'Mecsid.dbo.TemplateRicette'. La chiave è stata dedotta e la definizione è stata creata come tabella/visualizzazione di sola lettura.-->
+        <EntityType Name="TemplateRicette">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Materiali_Scarto">
+          <End Role="MaterialiSfrido" Type="Self.MaterialiSfrido" Multiplicity="1" />
+          <End Role="MaterialiNomi" Type="Self.MaterialiNomi" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MaterialiSfrido">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="MaterialiNomi">
+              <PropertyRef Name="IdSfrido" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TipoMola_MarcaMola">
+          <End Role="MolaMarca" Type="Self.MolaMarca" Multiplicity="1" />
+          <End Role="MolaTipo" Type="Self.MolaTipo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MolaMarca">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="MolaTipo">
+              <PropertyRef Name="IdMarca" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="MecsidModelStoreContainer">
+          <EntitySet Name="Destinazione" EntityType="Self.Destinazione" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MaterialiNomi" EntityType="Self.MaterialiNomi" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MaterialiSfrido" EntityType="Self.MaterialiSfrido" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MolaGrana" EntityType="Self.MolaGrana" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MolaMarca" EntityType="Self.MolaMarca" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MolaTipo" EntityType="Self.MolaTipo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Report" EntityType="Self.Report" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TemplateRicette" EntityType="Self.TemplateRicette" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [TemplateRicette].[Id] AS [Id]
+    FROM [dbo].[TemplateRicette] AS [TemplateRicette]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK_Materiali_Scarto" Association="Self.FK_Materiali_Scarto">
+            <End Role="MaterialiSfrido" EntitySet="MaterialiSfrido" />
+            <End Role="MaterialiNomi" EntitySet="MaterialiNomi" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TipoMola_MarcaMola" Association="Self.FK_TipoMola_MarcaMola">
+            <End Role="MolaMarca" EntitySet="MolaMarca" />
+            <End Role="MolaTipo" EntitySet="MolaTipo" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="MecsidModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Destinazione">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nome" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="MaterialiNomi">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nome" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="IdSfrido" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="MaterialiSfrido" Relationship="Self.FK_Materiali_Scarto" FromRole="MaterialiNomi" ToRole="MaterialiSfrido" />
+        </EntityType>
+        <EntityType Name="MaterialiSfrido">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NomeSfrido" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="MaterialiNomi" Relationship="Self.FK_Materiali_Scarto" FromRole="MaterialiSfrido" ToRole="MaterialiNomi" />
+        </EntityType>
+        <EntityType Name="MolaGrana">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Grana" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="MolaMarca">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nome" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="MolaTipo" Relationship="Self.FK_TipoMola_MarcaMola" FromRole="MolaMarca" ToRole="MolaTipo" />
+        </EntityType>
+        <EntityType Name="MolaTipo">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nome" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="IdMarca" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="MolaMarca" Relationship="Self.FK_TipoMola_MarcaMola" FromRole="MolaTipo" ToRole="MolaMarca" />
+        </EntityType>
+        <EntityType Name="Report">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DataFineLavoro" Type="DateTime" Precision="3" />
+          <Property Name="Marca" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="TipoSfrido" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="NumeroColata" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Destinazione" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="PezziLavorati" Type="Int32" />
+          <Property Name="PesoInizioLavoro" Type="Single" />
+          <Property Name="PesoFineLavoro" Type="Single" />
+          <Property Name="PesoSfrido" Type="Single" />
+          <Property Name="CambioMola" Type="Boolean" />
+          <Property Name="NumeroMoleCambiate" Type="Int32" />
+          <Property Name="UtilizzoMolaConsigliata" Type="Boolean" />
+          <Property Name="UtilizzoGranaConsigliata" Type="Boolean" />
+          <Property Name="TipoMolaUtilizzata" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="TipoMolaturaUtilizzato" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="MarcaMolaUtilizzato" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="NoteLavoro" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="TemplateRicette">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+        </EntityType>
+        <Association Name="FK_Materiali_Scarto">
+          <End Role="MaterialiSfrido" Type="Self.MaterialiSfrido" Multiplicity="1" />
+          <End Role="MaterialiNomi" Type="Self.MaterialiNomi" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MaterialiSfrido">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="MaterialiNomi">
+              <PropertyRef Name="IdSfrido" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TipoMola_MarcaMola">
+          <End Role="MolaMarca" Type="Self.MolaMarca" Multiplicity="1" />
+          <End Role="MolaTipo" Type="Self.MolaTipo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MolaMarca">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="MolaTipo">
+              <PropertyRef Name="IdMarca" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="MecsidEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Destinazione" EntityType="Self.Destinazione" />
+          <EntitySet Name="MaterialiNomi" EntityType="Self.MaterialiNomi" />
+          <EntitySet Name="MaterialiSfrido" EntityType="Self.MaterialiSfrido" />
+          <EntitySet Name="MolaGrana" EntityType="Self.MolaGrana" />
+          <EntitySet Name="MolaMarca" EntityType="Self.MolaMarca" />
+          <EntitySet Name="MolaTipo" EntityType="Self.MolaTipo" />
+          <EntitySet Name="Report" EntityType="Self.Report" />
+          <EntitySet Name="TemplateRicette" EntityType="Self.TemplateRicette" />
+          <AssociationSet Name="FK_Materiali_Scarto" Association="Self.FK_Materiali_Scarto">
+            <End Role="MaterialiSfrido" EntitySet="MaterialiSfrido" />
+            <End Role="MaterialiNomi" EntitySet="MaterialiNomi" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TipoMola_MarcaMola" Association="Self.FK_TipoMola_MarcaMola">
+            <End Role="MolaMarca" EntitySet="MolaMarca" />
+            <End Role="MolaTipo" EntitySet="MolaTipo" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="MecsidModelStoreContainer" CdmEntityContainer="MecsidEntities">
+          <EntitySetMapping Name="Destinazione">
+            <EntityTypeMapping TypeName="MecsidModel.Destinazione">
+              <MappingFragment StoreEntitySet="Destinazione">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Nome" ColumnName="Nome" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MaterialiNomi">
+            <EntityTypeMapping TypeName="MecsidModel.MaterialiNomi">
+              <MappingFragment StoreEntitySet="MaterialiNomi">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Nome" ColumnName="Nome" />
+                <ScalarProperty Name="IdSfrido" ColumnName="IdSfrido" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MaterialiSfrido">
+            <EntityTypeMapping TypeName="MecsidModel.MaterialiSfrido">
+              <MappingFragment StoreEntitySet="MaterialiSfrido">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="NomeSfrido" ColumnName="NomeSfrido" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MolaGrana">
+            <EntityTypeMapping TypeName="MecsidModel.MolaGrana">
+              <MappingFragment StoreEntitySet="MolaGrana">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Grana" ColumnName="Grana" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MolaMarca">
+            <EntityTypeMapping TypeName="MecsidModel.MolaMarca">
+              <MappingFragment StoreEntitySet="MolaMarca">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Nome" ColumnName="Nome" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MolaTipo">
+            <EntityTypeMapping TypeName="MecsidModel.MolaTipo">
+              <MappingFragment StoreEntitySet="MolaTipo">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Nome" ColumnName="Nome" />
+                <ScalarProperty Name="IdMarca" ColumnName="IdMarca" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Report">
+            <EntityTypeMapping TypeName="MecsidModel.Report">
+              <MappingFragment StoreEntitySet="Report">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="DataFineLavoro" ColumnName="DataFineLavoro" />
+                <ScalarProperty Name="Marca" ColumnName="Marca" />
+                <ScalarProperty Name="TipoSfrido" ColumnName="TipoSfrido" />
+                <ScalarProperty Name="NumeroColata" ColumnName="NumeroColata" />
+                <ScalarProperty Name="Destinazione" ColumnName="Destinazione" />
+                <ScalarProperty Name="PezziLavorati" ColumnName="PezziLavorati" />
+                <ScalarProperty Name="PesoInizioLavoro" ColumnName="PesoInizioLavoro" />
+                <ScalarProperty Name="PesoFineLavoro" ColumnName="PesoFineLavoro" />
+                <ScalarProperty Name="PesoSfrido" ColumnName="PesoSfrido" />
+                <ScalarProperty Name="CambioMola" ColumnName="CambioMola" />
+                <ScalarProperty Name="NumeroMoleCambiate" ColumnName="NumeroMoleCambiate" />
+                <ScalarProperty Name="UtilizzoMolaConsigliata" ColumnName="UtilizzoMolaConsigliata" />
+                <ScalarProperty Name="UtilizzoGranaConsigliata" ColumnName="UtilizzoGranaConsigliata" />
+                <ScalarProperty Name="TipoMolaUtilizzata" ColumnName="TipoMolaUtilizzata" />
+                <ScalarProperty Name="TipoMolaturaUtilizzato" ColumnName="TipoMolaturaUtilizzato" />
+                <ScalarProperty Name="MarcaMolaUtilizzato" ColumnName="MarcaMolaUtilizzato" />
+                <ScalarProperty Name="NoteLavoro" ColumnName="NoteLavoro" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TemplateRicette">
+            <EntityTypeMapping TypeName="MecsidModel.TemplateRicette">
+              <MappingFragment StoreEntitySet="TemplateRicette">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Nessuno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

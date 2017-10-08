@@ -31,7 +31,7 @@ namespace QuemolaWPF.UI
             }
         }
 
-
+        //proprità per il bindig della data
         private DateTime _date;
         public DateTime Date
         {
@@ -46,25 +46,57 @@ namespace QuemolaWPF.UI
             }
         }
 
+        //proprietà  per il bindig della connessione al database
+        private bool _dbConnected;
+        public bool DBConnected
+        {
+            get => _dbConnected;
+            set
+            {
+                if (value != _dbConnected)
+                {
+                    _dbConnected = value;
+                    NotifyPropertyChanged(nameof(DBConnected));
+                }
+            }
+        }
 
         public MainWindow()
         {
             InitializeComponent();
             this.DataContext = this;
             Date = DateTime.Now;
-            Thread Bidello = new Thread(bidella);
+            Thread Bidello = new Thread(BackWorker);
             Bidello.IsBackground = true;
             Bidello.Start();
         }
 
-        private void bidella()
+        //background worker dell' applicazione
+        private void BackWorker()
         {
             while (true)
             {
-                this.Date = DateTime.Now;
+                //controllo della connessione al database
+                lock (Classes.Lockers.DBConnectionLock)
+                {
+                    using (var context = new DB.MecsidEntities())
+                    {
+                        try
+                        {
+                            context.Database.Connection.Open();
+                            context.Database.Connection.Close();
+                            DBConnected = true;
+                        }
+                        catch (Exception)
+                        {
+                            DBConnected = false;
+                        }
+                        
+                    }
+                }
                 Thread.Sleep(500);
             }
-            
+
         }
 
         private void ClickVerificaProduzione(object sender, RoutedEventArgs e)

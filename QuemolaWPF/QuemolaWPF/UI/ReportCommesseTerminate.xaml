@@ -1,12 +1,18 @@
-﻿<Window x:Class="QuemolaWPF.UI.ReportCommesseTerminate"
+﻿<Window
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:QuemolaWPF.UI"
+        xmlns:DB="clr-namespace:QuemolaWPF.DB" x:Class="QuemolaWPF.UI.ReportCommesseTerminate"
         mc:Ignorable="d"
-        Title="ReportCommesseTerminate" Height="300" Width="300">
+        Title="ReportCommesseTerminate" Height="300" Width="300" Loaded="Window_Loaded">
+    <Window.Resources>
+        <CollectionViewSource x:Key="reportViewSource" d:DesignSource="{d:DesignInstance {x:Type DB:Report}, CreateList=True}"/>
+    </Window.Resources>
     <Grid>
-        
+        <DockPanel DataContext="{StaticResource reportViewSource}">
+            <DataGrid x:Name="CommesseTerminate" ItemsSource="{Binding}"/>
+        </DockPanel>
     </Grid>
 </Window>

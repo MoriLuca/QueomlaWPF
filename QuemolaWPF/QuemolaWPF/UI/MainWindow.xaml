@@ -21,7 +21,7 @@
                 <RowDefinition/>
             </Grid.RowDefinitions>
             <Image Source="../Resources/Images/Mecsid.png" Margin="5"/>
-            <Grid Grid.Row="1">
+            <Grid Grid.Row="1" Background="#eee">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="4*"/>
                     <ColumnDefinition/>
@@ -31,18 +31,17 @@
                     <RowDefinition/>
                 </Grid.RowDefinitions>
                 <Viewbox Grid.Row="0">
-                    <Label Content="Stato Connessione PLC"  VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                    <Label Content="Stato Connessione PLC"/>
                 </Viewbox>
                 <Viewbox Grid.Row="0" Grid.Column="1">
-                    <CheckBox Style="{DynamicResource CheckBoxStyleConnection}" Name="PLCConnection" 
-                          VerticalAlignment="Center" HorizontalAlignment="Center" IsEnabled="False"/>
+                    <CheckBox Style="{DynamicResource CheckBoxStyleConnection}" Name="PLCConnection" IsEnabled="False"/>
                 </Viewbox>
                 <Viewbox Grid.Row="1" Grid.Column="0">
-                    <Label Content="Stato Connessione Database" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                    <Label Content="Stato Connessione Database" Grid.Row="1"/>
                 </Viewbox>
                 <Viewbox Grid.Row="1" Grid.Column="1">
-                    <CheckBox Style="{DynamicResource CheckBoxStyleConnection}" Name="BDConnection" Grid.Column="1" 
-                          Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center" IsEnabled="False"/>
+                    <CheckBox Style="{DynamicResource CheckBoxStyleConnection}" Name="BDConnection" IsEnabled="False"
+                              IsChecked="{Binding DBConnected}"/>
                 </Viewbox>
 
 
@@ -56,14 +55,18 @@
             <!--<TextBox Text="{Binding Date}" HorizontalAlignment="Stretch" TextAlignment="Right"/>-->
             <StackPanel Height="10"/>
             <!--solamente per top margin-->
-            <Button Content="Verifica produzione in corso" Height="50" Click="ClickVerificaProduzione" Style="{DynamicResource ButtonStyleMenu}"
+            <Viewbox>
+                <StackPanel>
+                    <Button Content="Verifica produzione in corso" Height="50" Click="ClickVerificaProduzione" Style="{DynamicResource ButtonStyleMenu}"
                     />
-            <Button Content="Modifica la produzione" Height="50" Click="ClickVerificaProduzione"
+                    <Button Content="Modifica la produzione" Height="50" Click="ClickVerificaProduzione"
                     FontStyle="Italic" FontSize="25" Style="{DynamicResource ButtonStyleMenu}"/>
-            <Button Content="Report delle commesse terminate" Height="50" Click="ClickVerificaProduzione"
+                    <Button Content="Report delle commesse terminate" Height="50" Click="ClickVerificaProduzione"
                     FontStyle="Italic" FontSize="25" Style="{DynamicResource ButtonStyleMenu}"/>
-            <Button Content="Impostazioni e database Managment" Height="50" Click="ClickVerificaProduzione"
+                    <Button Content="Impostazioni e database Managment" Height="50" Click="ClickVerificaProduzione"
                     FontStyle="Italic" FontSize="25" Style="{DynamicResource ButtonStyleMenu}"/>
+                </StackPanel>
+            </Viewbox>
         </StackPanel>
         <!--fine parte destra della grid-->
     </Grid>
