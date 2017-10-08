@@ -13,7 +13,7 @@
             <ColumnDefinition/>
             <ColumnDefinition Width="2.5*"/>
         </Grid.ColumnDefinitions>
-        
+
         <!--parte sinistra della grid-->
         <Grid Grid.Column="0" Background="AliceBlue">
             <Grid.RowDefinitions>
@@ -21,7 +21,7 @@
                 <RowDefinition/>
             </Grid.RowDefinitions>
             <Image Source="../Resources/Images/Mecsid.png" Margin="5"/>
-            <Grid Grid.Row="1" Background="#eee">
+            <Grid Grid.Row="1">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="4*"/>
                     <ColumnDefinition/>
@@ -30,20 +30,32 @@
                     <RowDefinition/>
                     <RowDefinition/>
                 </Grid.RowDefinitions>
-                <Label Content="Stato Connessione PLC" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                <Label Content="Stato Connessione Database" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                <CheckBox Style="{DynamicResource CheckBoxStyleConnection}" Name="PLCConnection" Grid.Column="1" 
-                          Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Center" IsEnabled="False"/>
-                <CheckBox Style="{DynamicResource CheckBoxStyleConnection}" Name="BDConnection" Grid.Column="1" 
+                <Viewbox Grid.Row="0">
+                    <Label Content="Stato Connessione PLC"  VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                </Viewbox>
+                <Viewbox Grid.Row="0" Grid.Column="1">
+                    <CheckBox Style="{DynamicResource CheckBoxStyleConnection}" Name="PLCConnection" 
+                          VerticalAlignment="Center" HorizontalAlignment="Center" IsEnabled="False"/>
+                </Viewbox>
+                <Viewbox Grid.Row="1" Grid.Column="0">
+                    <Label Content="Stato Connessione Database" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                </Viewbox>
+                <Viewbox Grid.Row="1" Grid.Column="1">
+                    <CheckBox Style="{DynamicResource CheckBoxStyleConnection}" Name="BDConnection" Grid.Column="1" 
                           Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center" IsEnabled="False"/>
+                </Viewbox>
+
+
+
             </Grid>
         </Grid>
         <!--fine parte dinistra della grid-->
-        
+
         <!--parte destra della grid-->
         <StackPanel Grid.Column="1" Background="LightGray">
             <!--<TextBox Text="{Binding Date}" HorizontalAlignment="Stretch" TextAlignment="Right"/>-->
-            <StackPanel Height="10"/><!--solamente per top margin-->
+            <StackPanel Height="10"/>
+            <!--solamente per top margin-->
             <Button Content="Verifica produzione in corso" Height="50" Click="ClickVerificaProduzione" Style="{DynamicResource ButtonStyleMenu}"
                     />
             <Button Content="Modifica la produzione" Height="50" Click="ClickVerificaProduzione"
